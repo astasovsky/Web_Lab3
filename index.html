@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Шахматная доска</title>
+	<style type="text/css">
+		#outside-frame
+		{
+			margin-left: auto;
+		    margin-right: auto;
+		    width: 900px;
+		    height: 900px;
+		    background-color: #27130a;
+		    border-radius: 40px;
+		    vertical-align: middle;
+		    position: relative;
+		}
+
+		#inside-frame
+		{
+		    width: 850px;
+		    height: 850px;
+		    background-color: #bebdbb;
+		    border-radius: 20px;
+			position: absolute;
+			right: 25px;
+		    top: 0;
+		    bottom: 0;
+		    margin: auto 0;
+		}
+
+		#chessboard
+		{
+		    width: 800px;
+		    height: 800px;
+		    margin: auto;
+		    padding: 0px;
+			position: absolute;
+			right: 25px;
+		    top: 0;
+		    bottom: 0;
+		}
+
+		table
+		{
+			text-align: center;
+			border-collapse: collapse;
+		}
+
+		#top-axis
+		{
+			width: 800px;
+			margin-left: 25px;
+		}
+
+		#top-axis td
+		{
+			width: 100px;
+			height: 25px;
+		}
+
+		#bottom-axis
+		{
+			position: absolute;
+			bottom: 0px;
+			width: 800px;
+			margin-left: 25px;
+		}
+
+		#bottom-axis td
+		{
+			width: 100px;
+			height: 25px;
+			transform: rotate(180deg);
+		}
+
+		#left-axis
+		{
+			width: 25px;
+		}
+
+		#left-axis tr
+		{
+			height: 100px;
+		}
+
+		#right-axis
+		{
+			bottom: 25px;
+			right: 0px;
+			position: absolute;
+			width: 25px;
+		}
+
+		#right-axis tr
+		{
+			height: 100px;
+			transform: rotate(180deg);
+		}
+
+		#squares div
+		{
+			float: left;
+		    width: 100px;
+		    height: 100px;
+		    background-color: #2c110a;
+		    background-size: 90%; 
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#squares div:nth-child(-2n+8), 
+		#squares div:nth-child(8) ~ div:nth-child(-2n+15), 
+		#squares div:nth-child(16) ~ div:nth-child(-2n+24), 
+		#squares div:nth-child(24) ~ div:nth-child(-2n+31),
+		#squares div:nth-child(32) ~ div:nth-child(-2n+40), 
+		#squares div:nth-child(40) ~ div:nth-child(-2n+47), 
+		#squares div:nth-child(48) ~ div:nth-child(-2n+56), 
+		#squares div:nth-child(56) ~ div:nth-child(-2n+63)
+		{
+		    background-color: #fff;
+		}
+
+		/*Белые пешки*/
+		#squares div:nth-child(8) ~ div:nth-child(-n+16)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png);
+		}
+
+		/*Черные пешки*/
+		#squares div:nth-child(48) ~ div:nth-child(-n+56)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png);
+		}
+
+		/*Белые ладьи*/
+		#squares div:nth-child(1), div:nth-child(8)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/5/5c/Chess_rlt60.png);
+		}
+
+		/*Черные ладьи*/
+		#squares div:nth-child(57), div:nth-child(64)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/a0/Chess_rdt60.png);
+		}
+
+		/*Белые кони*/
+		#squares div:nth-child(2), div:nth-child(7)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/2/28/Chess_nlt60.png);
+		}
+
+		/*Черные кони*/
+		#squares div:nth-child(58), div:nth-child(63)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/f1/Chess_ndt60.png);
+		}
+
+		/*Белые слоны*/
+		#squares div:nth-child(3), div:nth-child(6)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/9b/Chess_blt60.png);
+		}
+
+		/*Черные слоны*/
+		#squares div:nth-child(59), div:nth-child(62)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/8/81/Chess_bdt60.png);
+		}
+
+		/*Белый король*/
+		#squares div:nth-child(5)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/3b/Chess_klt60.png);
+		}
+
+		/*Черный король*/
+		#squares div:nth-child(61)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e3/Chess_kdt60.png);
+		}
+
+		/*Белый ферзь*/
+		#squares div:nth-child(4)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/49/Chess_qlt60.png);
+		}
+
+		/*Черный ферзь*/
+		#squares div:nth-child(60)
+		{
+			background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/af/Chess_qdt60.png);
+		}
+	</style>
+
+</head>
+<body>
+	<div id="outside-frame">
+		<div id="inside-frame">
+
+			<table id="top-axis">
+				<tr>
+					<td>A</td>
+					<td>B</td>
+					<td>C</td>
+					<td>D</td>
+					<td>E</td>
+					<td>F</td>
+					<td>G</td>
+					<td>H</td>
+				</tr>
+			</table>
+
+			<table id="bottom-axis">
+				<tr>
+					<td>A</td>
+					<td>B</td>
+					<td>C</td>
+					<td>D</td>
+					<td>E</td>
+					<td>F</td>
+					<td>G</td>
+					<td>H</td>
+				</tr>
+			</table>
+
+			<table id="left-axis">
+				<tr>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>5</td>
+				</tr>
+				<tr>
+					<td>6</td>
+				</tr>
+				<tr>
+					<td>7</td>
+				</tr>
+				<tr>
+					<td>8</td>
+				</tr>
+			</table>
+
+			<table id="right-axis">
+				<tr>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>5</td>
+				</tr>
+				<tr>
+					<td>6</td>
+				</tr>
+				<tr>
+					<td>7</td>
+				</tr>
+				<tr>
+					<td>8</td>
+				</tr>
+			</table>
+
+				<div id="chessboard">
+					<div id="squares">
+				   		<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+					    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+			    	</div>
+				</div>
+
+		</div>
+	</div>
+</body>
+</html>
